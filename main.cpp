@@ -7,7 +7,7 @@
 
 #define GMEXPORT extern "C" __declspec(dllexport)
 
-std::string GMgetWindowName() {
+GMEXPORT std::string GMgetWindowName() {
     TCHAR title[500];
 
     GetWindowText(GetForegroundWindow(), title, 500);
