@@ -1,2 +1,3 @@
 EXPORTS
-    _Z15GMgetWindowNameB5cxx11v @1
+    checkWindowName @1
+    getWindowNameC @2
