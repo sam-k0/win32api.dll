@@ -131,7 +131,8 @@ GMEXPORT int shellExec(const char* passedHandle, const char* lpOperation, const 
                     (LPCSTR)lpParameters,
                     (LPCSTR)lpDirectory,
                     (INT)nShowCmd
-                  )
+                  );
+    return 1;
 }
 
 
