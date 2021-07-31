@@ -118,9 +118,20 @@ GMEXPORT int setWindowIcon(const char* passedHandle, const char* icopath)
         SendMessage( HWND(passedHandle), WM_SETICON, ICON_BIG, (LPARAM)hWindowIconBig );
     }
     return 1;
-
-
 }
 
+GMEXPORT int shellExec(const char* passedHandle, const char* lpOperation, const char* lpFile, const char* lpParameters, const char* lpDirectory, int nShowCmd)
+{
+    //Executes a shell command with parameters given.
+    // https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutea?redirectedfrom=MSDN
+    ShellExecuteA(
+                    (HWND)passedHandle,
+                    (LPCSTR)lpOperation,
+                    (LPCSTR)lpFile,
+                    (LPCSTR)lpParameters,
+                    (LPCSTR)lpDirectory,
+                    (INT)nShowCmd
+                  )
+}
 
 
