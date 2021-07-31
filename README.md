@@ -41,6 +41,12 @@ Takes (again) the game window handle (`window_handle()`) and a ty_string to the 
 
 returns ty_real <0 if failed or 1 if successful.
 
+## shellExec(const char* passedHandle, const char* lpOperation, const char* lpFile, const char* lpParameters, const char* lpDirectory, int nShowCmd)
+
+Execute operations in windows shell
+Reference:
+
+https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutea?redirectedfrom=MSDN
 
 
 For further reference, check the sourcecode, main.cpp. You'll understand.
