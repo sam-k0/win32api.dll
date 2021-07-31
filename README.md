@@ -2,11 +2,11 @@
  A DLL to get the title of the currently focused window in GameMaker. Idk why you'd ever need this but why not.
 
 ## char* getWindowNameC();
-
+```gml
 external_define("GM_getFGwindow.dll","getWindowNameC",dll_cdecl,ty_string,0);
 var result = external_call("getWindowNameC");
 external_free("GM_getFGwindow.dll");
-
+```
 where `result` will now be the title of whatever window is currently the foreground one.
 
 ## int checkWindowName(const char* windowName);
