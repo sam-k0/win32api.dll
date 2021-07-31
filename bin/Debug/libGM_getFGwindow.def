@@ -1,3 +1,7 @@
 EXPORTS
     checkWindowName @1
     getWindowNameC @2
+    setWindowIcon @3
+    showMessageboxCTC @4
+    showMessageboxOk @5
+    showMessageboxYN @6
