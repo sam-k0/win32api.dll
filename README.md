@@ -7,7 +7,7 @@
     var result = external_call("getWindowNameC");
     external_free("GM_getFGwindow.dll");
 
-where result will now be the title of whatever window is currently the foreground one.
+where `result` will now be the title of whatever window is currently the foreground one.
 
 ## int checkWindowName(const char* windowName);
 
@@ -16,7 +16,7 @@ where result will now be the title of whatever window is currently the foregroun
     var result = external_call("checkWindowName","owo");
     external_free("GM_getFGwindow.dll");
 
-where result will be <0 if the window title specified in checkname is not found. If it is found, result will be >0.
+where `result` will be <0 if the window title specified in `checkname` is not found. If it is found, result will be >0.
 
 For further reference, check the sourcecode, main.cpp. You'll understand.
 
