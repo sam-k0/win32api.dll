@@ -1,5 +1,7 @@
 # win32api.dll
  A DLL to get the title of the currently focused window in GameMaker. Idk why you'd ever need this but why not.
+ 
+**Disclaimer: the releases may not be as up to date as the .dll file in bin>Debug>GM_getFGwindow.dll **
 
 ## char* getWindowNameC();
 ```gml
@@ -41,6 +43,12 @@ Takes (again) the game window handle (`window_handle()`) and a ty_string to the 
 
 returns ty_real <0 if failed or 1 if successful.
 
+## shellExec(const char* passedHandle, const char* lpOperation, const char* lpFile, const char* lpParameters, const char* lpDirectory, int nShowCmd)
+
+Execute operations in windows shell
+Reference:
+
+https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutea?redirectedfrom=MSDN
 
 
 For further reference, check the sourcecode, main.cpp. You'll understand.
