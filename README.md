@@ -54,7 +54,8 @@ https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexe
 
 Sets the icon in taskbar as flashing.
 
-```flashCount: The number of times to flash the window.
+```
+flashCount: The number of times to flash the window.
 flashRateMillis: The rate at which the window is to be flashed, in milliseconds. If dwTimeout is zero, the function uses the default cursor blink rate.
 
 ***Taken from: https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-flashwinfo
