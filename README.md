@@ -1,5 +1,5 @@
 # win32api.dll
- A DLL to get the title of the currently focused window in GameMaker. Idk why you'd ever need this but why not.
+ A dll to mess with some basic win32 api functions. Can be used in GMS1.4 and GMS2
  
 **Disclaimer: the releases may not be as up to date as the .dll file in bin>Debug>GM_getFGwindow.dll **
 
