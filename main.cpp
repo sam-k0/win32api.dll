@@ -135,4 +135,18 @@ GMEXPORT int shellExec(const char* passedHandle, const char* lpOperation, const 
     return 1;
 }
 
+GMEXPORT int setFlashing(const char* passedHandle, int flashCount, int flashRateMillis)
+{
+    HWND hHandle = (HWND)passedHandle; // Set handle to passed handle
+    FLASHWINFO pf;                     // instanciate a struct of type flash window info
+    pf.cbSize = sizeof(FLASHWINFO);
+    pf.hwnd = hHandle;
+    pf.dwFlags = FLASHW_TIMER|FLASHW_TRAY; // (or FLASHW_ALL to flash and if it is not minimized)
+    pf.uCount = flashCount;
+    pf.dwTimeout = flashRateMillis;
+
+    FlashWindowEx(&pf);
+    return 1;
+}
+
 
