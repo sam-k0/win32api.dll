@@ -6,4 +6,5 @@ EXPORTS
     shellExec @5
     showMessageboxCTC @6
     showMessageboxOk @7
-    showMessageboxYN @8
+    showMessageboxTest @8
+    showMessageboxYN @9

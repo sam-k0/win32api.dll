@@ -2,9 +2,18 @@
 #include <Windows.h>
 #include <stdio.h>
 #include <string>
-
+#include <stdlib.h>
 
 #define GMEXPORT extern "C" __declspec(dllexport)
+
+HWND resolveHandle(const char* _passedHandle)
+{
+    std::string hstr(_passedHandle);
+    HWND parentHwnd = (HWND)std::stoull(hstr);
+    return parentHwnd;
+}
+
+
 
 GMEXPORT int checkWindowName(const char* windowName) {
     // Checks if a window with a certain title exists
@@ -33,9 +42,26 @@ GMEXPORT int showMessageboxOk(const char* passedHandle, const char* headline, co
     // Takes game maker window handle, headline, body text
     // returns whatever the msgbox id is.
     int msgboxID = MessageBox(
-        (HWND)passedHandle,
+        resolveHandle(passedHandle),
         (LPCSTR)bodytext,
         (LPCSTR)headline,
+        MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON2
+    );
+
+    return msgboxID;
+}
+
+
+GMEXPORT int showMessageboxTest(const char* passedHandle)
+{
+    // Takes game maker window handle, headline, body text
+    // returns whatever the msgbox id is.
+
+
+    int msgboxID = MessageBox(
+        resolveHandle(passedHandle),
+        (LPCSTR)L"AAA",
+        (LPCSTR)L"OWO",
         MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON2
     );
 
@@ -47,7 +73,7 @@ GMEXPORT int showMessageboxCTC(const char* passedHandle, const char* headline, c
     // this will show a messagebox with a continue, try again and cancel button.
     int returnVal = 0; // Normalized button output value 0-2
     int msgboxID = MessageBox(
-        (HWND)passedHandle,
+        resolveHandle(passedHandle),
         (LPCSTR)bodytext,
         (LPCSTR)headline,
         MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2
@@ -77,7 +103,7 @@ GMEXPORT int showMessageboxYN(const char* passedHandle, const char* headline, co
 {   // shows a messagebox with yes and no button, returns 0 for no and 1 for yes
     int returnVal = 0;
     int msgboxID = MessageBox(
-        (HWND)passedHandle,
+        resolveHandle(passedHandle),
         (LPCSTR)bodytext,
         (LPCSTR)headline,
         MB_ICONEXCLAMATION | MB_YESNO
@@ -95,6 +121,8 @@ GMEXPORT int showMessageboxYN(const char* passedHandle, const char* headline, co
 GMEXPORT int setWindowIcon(const char* passedHandle, const char* icopath)
 {   // sets an icon to the game window. Returns 1 if success and <0 if not
     // Reference: http://www.cplusplus.com/forum/windows/188709/
+    HWND handle = resolveHandle(passedHandle);
+
     HICON hWindowIcon=NULL;
     HICON hWindowIconBig=NULL;
     std::string stricon = icopath;
@@ -114,8 +142,8 @@ GMEXPORT int setWindowIcon(const char* passedHandle, const char* icopath)
     {
         hWindowIcon =(HICON)LoadImage(NULL, stricon.c_str(), IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
         hWindowIconBig =(HICON)LoadImage(NULL, stricon.c_str(), IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
-        SendMessage( HWND(passedHandle), WM_SETICON, ICON_SMALL, (LPARAM)hWindowIcon );
-        SendMessage( HWND(passedHandle), WM_SETICON, ICON_BIG, (LPARAM)hWindowIconBig );
+        SendMessage( HWND(handle), WM_SETICON, ICON_SMALL, (LPARAM)hWindowIcon );
+        SendMessage( HWND(handle), WM_SETICON, ICON_BIG, (LPARAM)hWindowIconBig );
     }
     return 1;
 }
@@ -125,7 +153,7 @@ GMEXPORT int shellExec(const char* passedHandle, const char* lpOperation, const 
     //Executes a shell command with parameters given.
     // https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutea?redirectedfrom=MSDN
     ShellExecuteA(
-                    (HWND)passedHandle,
+                    resolveHandle(passedHandle),
                     (LPCSTR)lpOperation,
                     (LPCSTR)lpFile,
                     (LPCSTR)lpParameters,
@@ -137,7 +165,7 @@ GMEXPORT int shellExec(const char* passedHandle, const char* lpOperation, const 
 
 GMEXPORT int setFlashing(const char* passedHandle, int flashCount, int flashRateMillis)
 {
-    HWND hHandle = (HWND)passedHandle; // Set handle to passed handle
+    HWND hHandle = resolveHandle(passedHandle); // Set handle to passed handle
     FLASHWINFO pf;                     // instanciate a struct of type flash window info
     pf.cbSize = sizeof(FLASHWINFO);
     pf.hwnd = hHandle;
