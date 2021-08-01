@@ -10,6 +10,7 @@ HWND resolveHandle(const char* _passedHandle)
 {
     std::string hstr(_passedHandle);
     HWND parentHwnd = (HWND)std::stoull(hstr);
+
     return parentHwnd;
 }
 
@@ -176,5 +177,35 @@ GMEXPORT int setFlashing(const char* passedHandle, int flashCount, int flashRate
     FlashWindowEx(&pf);
     return 1;
 }
+
+GMEXPORT int setFlashingDef(const char* windowName, int cnt, int rate)
+{
+    HWND hHandle = FindWindow(NULL,windowName); // Set handle to passed handle
+    FLASHWINFO pf;                     // instanciate a struct of type flash window info
+    pf.cbSize = sizeof(FLASHWINFO);
+    pf.hwnd = hHandle;
+    pf.dwFlags = FLASHW_TIMER|FLASHW_TRAY; // (or FLASHW_ALL to flash and if it is not minimized)
+    pf.uCount = 8;
+    pf.dwTimeout = 80;
+
+    FlashWindowEx(&pf);
+    return 1;
+}
+
+
+GMEXPORT int setFlashingT(const char* windowName)
+{
+    HWND hHandle = FindWindow(NULL,windowName); // Set handle to passed handle
+    FLASHWINFO pf;                     // instanciate a struct of type flash window info
+    pf.cbSize = sizeof(FLASHWINFO);
+    pf.hwnd = hHandle;
+    pf.dwFlags = FLASHW_TIMER|FLASHW_TRAY; // (or FLASHW_ALL to flash and if it is not minimized)
+    pf.uCount = 8;
+    pf.dwTimeout = 2000;
+
+    FlashWindowEx(&pf);
+    return 1;
+}
+
 
 

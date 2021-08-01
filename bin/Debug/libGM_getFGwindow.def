@@ -2,9 +2,11 @@ EXPORTS
     checkWindowName @1
     getWindowNameC @2
     setFlashing @3
-    setWindowIcon @4
-    shellExec @5
-    showMessageboxCTC @6
-    showMessageboxOk @7
-    showMessageboxTest @8
-    showMessageboxYN @9
+    setFlashingDef @4
+    setFlashingT @5
+    setWindowIcon @6
+    shellExec @7
+    showMessageboxCTC @8
+    showMessageboxOk @9
+    showMessageboxTest @10
+    showMessageboxYN @11
