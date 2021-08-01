@@ -3,8 +3,16 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
-
+#include <vector>
 #define GMEXPORT extern "C" __declspec(dllexport)
+
+/*
+TODO: Change return types from int to double.
+Check window flashing functions.
+
+*/
+
+
 
 HWND resolveHandle(const char* _passedHandle)
 {
@@ -14,7 +22,7 @@ HWND resolveHandle(const char* _passedHandle)
     return parentHwnd;
 }
 
-
+//char* returnValPtr = &returnVal[0]; // Convert from string to char*
 
 GMEXPORT int checkWindowName(const char* windowName) {
     // Checks if a window with a certain title exists
@@ -44,8 +52,8 @@ GMEXPORT int showMessageboxOk(const char* passedHandle, const char* headline, co
     // returns whatever the msgbox id is.
     int msgboxID = MessageBox(
         resolveHandle(passedHandle),
-        (LPCSTR)bodytext,
-        (LPCSTR)headline,
+        bodytext,
+        headline,
         MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON2
     );
 
@@ -61,8 +69,8 @@ GMEXPORT int showMessageboxTest(const char* passedHandle)
 
     int msgboxID = MessageBox(
         resolveHandle(passedHandle),
-        (LPCSTR)L"AAA",
-        (LPCSTR)L"OWO",
+        "Is this a body?",
+        "Is this a headline?",
         MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON2
     );
 
@@ -75,10 +83,11 @@ GMEXPORT int showMessageboxCTC(const char* passedHandle, const char* headline, c
     int returnVal = 0; // Normalized button output value 0-2
     int msgboxID = MessageBox(
         resolveHandle(passedHandle),
-        (LPCSTR)bodytext,
-        (LPCSTR)headline,
+        bodytext,
+        headline,
         MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2
     );
+
 
     switch (msgboxID)
     {
@@ -105,8 +114,8 @@ GMEXPORT int showMessageboxYN(const char* passedHandle, const char* headline, co
     int returnVal = 0;
     int msgboxID = MessageBox(
         resolveHandle(passedHandle),
-        (LPCSTR)bodytext,
-        (LPCSTR)headline,
+        bodytext,
+        headline,
         MB_ICONEXCLAMATION | MB_YESNO
     );
 
@@ -119,7 +128,7 @@ GMEXPORT int showMessageboxYN(const char* passedHandle, const char* headline, co
     return returnVal;
 }
 
-GMEXPORT int setWindowIcon(const char* passedHandle, const char* icopath)
+GMEXPORT int setWindowIcon(const char* passedHandle, const char* icopath) // Currently unstable
 {   // sets an icon to the game window. Returns 1 if success and <0 if not
     // Reference: http://www.cplusplus.com/forum/windows/188709/
     HWND handle = resolveHandle(passedHandle);
@@ -149,36 +158,66 @@ GMEXPORT int setWindowIcon(const char* passedHandle, const char* icopath)
     return 1;
 }
 
-GMEXPORT int shellExec(const char* passedHandle, const char* lpOperation, const char* lpFile, const char* lpParameters, const char* lpDirectory, int nShowCmd)
+GMEXPORT int shellExec(const char* passedHandle, const char* lpOperation, const char* lpFile)
 {
     //Executes a shell command with parameters given.
     // https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutea?redirectedfrom=MSDN
     ShellExecuteA(
                     resolveHandle(passedHandle),
-                    (LPCSTR)lpOperation,
-                    (LPCSTR)lpFile,
-                    (LPCSTR)lpParameters,
-                    (LPCSTR)lpDirectory,
-                    (INT)nShowCmd
+                    lpOperation,
+                    lpFile,
+                    NULL,
+                    NULL,
+                    1
                   );
     return 1;
 }
 
-GMEXPORT int setFlashing(const char* passedHandle, int flashCount, int flashRateMillis)
+
+GMEXPORT int shellExecEx(const char* Verb, const char* File, const char* Showtype)
+{
+    // Takes the Showtype as string : https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-showwindow
+    ShellExecute(
+                 NULL,
+                 Verb, // For example "open"
+                 File, // "C:\\Windows\\system32\\mspaint.exe"
+                 NULL,
+                 NULL,
+                 std::stoi(Showtype)
+                 );
+    return 1;
+}
+
+GMEXPORT int setFlashingHandle(const char* passedHandle, const char* flashCount, const char* flashRateMillis)
 {
     HWND hHandle = resolveHandle(passedHandle); // Set handle to passed handle
     FLASHWINFO pf;                     // instanciate a struct of type flash window info
     pf.cbSize = sizeof(FLASHWINFO);
     pf.hwnd = hHandle;
     pf.dwFlags = FLASHW_TIMER|FLASHW_TRAY; // (or FLASHW_ALL to flash and if it is not minimized)
-    pf.uCount = flashCount;
-    pf.dwTimeout = flashRateMillis;
+    pf.uCount = std::stoi(flashCount);
+    pf.dwTimeout = std::stoi(flashRateMillis);
 
     FlashWindowEx(&pf);
     return 1;
 }
 
-GMEXPORT int setFlashingDef(const char* windowName, int cnt, int rate)
+GMEXPORT int setFlashingName(const char* windowName, const char* cnt, const char* rate) // Doesnt take the int values .. Just ignores it
+{
+    HWND hHandle = FindWindow(NULL,windowName); // Set handle to passed handle
+    FLASHWINFO pf;                     // instanciate a struct of type flash window info
+    pf.cbSize = sizeof(FLASHWINFO);
+    pf.hwnd = hHandle;
+    pf.dwFlags = FLASHW_TIMER|FLASHW_TRAY; // (or FLASHW_ALL to flash and if it is not minimized)
+    pf.uCount = std::stoi(cnt);
+    pf.dwTimeout = std::stoi(rate);
+
+    FlashWindowEx(&pf);
+    return 1;
+}
+
+
+GMEXPORT int setFlashingNameDefault(const char* windowName)
 {
     HWND hHandle = FindWindow(NULL,windowName); // Set handle to passed handle
     FLASHWINFO pf;                     // instanciate a struct of type flash window info
@@ -193,9 +232,10 @@ GMEXPORT int setFlashingDef(const char* windowName, int cnt, int rate)
 }
 
 
-GMEXPORT int setFlashingT(const char* windowName)
+
+GMEXPORT int setFlashingNormal(const char* passedHandle)
 {
-    HWND hHandle = FindWindow(NULL,windowName); // Set handle to passed handle
+    HWND hHandle = resolveHandle(passedHandle); // Set handle to passed handle
     FLASHWINFO pf;                     // instanciate a struct of type flash window info
     pf.cbSize = sizeof(FLASHWINFO);
     pf.hwnd = hHandle;
