@@ -1,6 +1,6 @@
 # win32api.dll
  A dll to mess with some basic win32 api functions. Can be used in GMS1.4 and GMS2
- 
+ This readme may not be up to date (Fun Fact: it isnt.)
 **Disclaimer: the releases may not be as up to date as the .dll file in bin>Debug>GM_getFGwindow.dll **
 
 ## char* getWindowNameC();
