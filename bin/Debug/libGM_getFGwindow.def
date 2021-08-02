@@ -5,9 +5,8 @@ EXPORTS
     setFlashingName @4
     setFlashingSelf @5
     setWindowIcon @6
-    shellExec @7
-    shellExecEx @8
-    showMessageboxCTC @9
-    showMessageboxOk @10
-    showMessageboxTest @11
-    showMessageboxYN @12
+    shellExecEx @7
+    showMessageboxCTC @8
+    showMessageboxOk @9
+    showMessageboxTest @10
+    showMessageboxYN @11

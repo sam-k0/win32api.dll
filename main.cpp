@@ -24,10 +24,7 @@ HWND resolveHandle(const char* _passedHandle)
 
 //char* returnValPtr = &returnVal[0]; // Convert from string to char*
 
-GMEXPORT double initTest(double Parameter) // Geht / testfunktion
-{
-    return Parameter*2;
-}
+
 
 GMEXPORT double checkWindowName(const char* windowName, double returnValue) // geht / returns 1 yes 0 no
 {
@@ -55,12 +52,12 @@ GMEXPORT char* getWindowNameC()  // Geht sicher / Returns string
     return titleptr;
 }
 
-GMEXPORT double showMessageboxOk(const char* passedHandle, const char* headline, const char* bodytext)
+GMEXPORT double showMessageboxOk(const char* headline, const char* bodytext)
 {   // Not sure about return.. Wahrschreinlich random bullshit
     // Takes game maker window handle, headline, body text
     // returns whatever the msgbox id is.
     int msgboxID = MessageBox(
-        resolveHandle(passedHandle),
+        GetActiveWindow(),
         bodytext,
         headline,
         MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON2
@@ -70,26 +67,13 @@ GMEXPORT double showMessageboxOk(const char* passedHandle, const char* headline,
 }
 
 
-GMEXPORT int showMessageboxTest(const char* passedHandle) // Geht / Testfunktion
-{
-    // Takes game maker window handle, headline, body text
-    // returns whatever the msgbox id is.
-    int msgboxID = MessageBox(
-        resolveHandle(passedHandle),
-        "Is this a body?",
-        "Is this a headline?",
-        MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON2
-    );
 
-    return msgboxID;
-}
-
-GMEXPORT double showMessageboxCTC(const char* passedHandle, const char* headline, const char* bodytext, double returnVal) // Geht / Janky
+GMEXPORT double showMessageboxCTC(const char* headline, const char* bodytext, double returnVal) // Geht / Janky
 {   // Operational / tut was sie soll wenn man glueck hat
     // this will show a messagebox with a continue, try again and cancel button.
     returnVal = 0; // Normalized button output value 0-2
     int msgboxID = MessageBox(
-        resolveHandle(passedHandle),
+        GetActiveWindow(),
         bodytext,
         headline,
         MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2
@@ -116,11 +100,11 @@ GMEXPORT double showMessageboxCTC(const char* passedHandle, const char* headline
 }
 
 
-GMEXPORT double showMessageboxYN(const char* passedHandle, const char* headline, const char* bodytext, double returnVal)// geht
+GMEXPORT double showMessageboxYN(const char* headline, const char* bodytext, double returnVal)// geht
 {   // shows a messagebox with yes and no button, returns 0 for no and 1 for yes
     returnVal = 0;
     int msgboxID = MessageBox(
-        resolveHandle(passedHandle),
+        GetActiveWindow(),
         bodytext,
         headline,
         MB_ICONEXCLAMATION | MB_YESNO
@@ -163,22 +147,6 @@ GMEXPORT double setWindowIcon( const char* icopath) // Geht. pass string path wi
         SendMessage( HWND(handle), WM_SETICON, ICON_SMALL, (LPARAM)hWindowIcon );
         SendMessage( HWND(handle), WM_SETICON, ICON_BIG, (LPARAM)hWindowIconBig );
     }
-    return returnVal;
-}
-
-GMEXPORT double shellExec(const char* passedHandle, const char* lpOperation, const char* lpFile) //???
-{
-    double returnVal = 1;
-    //Executes a shell command with parameters given.
-    // https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutea?redirectedfrom=MSDN
-    ShellExecuteA(
-                    resolveHandle(passedHandle),
-                    lpOperation,
-                    lpFile,
-                    NULL,
-                    NULL,
-                    1
-                  );
     return returnVal;
 }
 
@@ -226,4 +194,24 @@ GMEXPORT double setFlashingName(const char* windowName, double flashCount, doubl
     return flashCount;
 }
 
+// test funktionen
 
+GMEXPORT int showMessageboxTest(const char* passedHandle) // Geht / Testfunktion
+{
+    // Takes game maker window handle, headline, body text
+    // returns whatever the msgbox id is.
+    int msgboxID = MessageBox(
+        resolveHandle(passedHandle),
+        "Is this a body?",
+        "Is this a headline?",
+        MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON2
+    );
+
+    return msgboxID;
+}
+
+
+GMEXPORT double initTest(double Parameter) // Geht / testfunktion
+{
+    return Parameter*2;
+}
