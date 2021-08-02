@@ -135,7 +135,7 @@ GMEXPORT double showMessageboxYN(const char* passedHandle, const char* headline,
     return returnVal;
 }
 
-GMEXPORT double setWindowIcon( const char* icopath) // Geht.
+GMEXPORT double setWindowIcon( const char* icopath) // Geht. pass string path with double backslashes.
 {   // sets an icon to the game window. Returns 1 if success and <0 if not
     // Reference: http://www.cplusplus.com/forum/windows/188709/
     HWND handle = GetActiveWindow();
