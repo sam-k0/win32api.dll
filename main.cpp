@@ -243,6 +243,17 @@ GMEXPORT double setFlashingName(const char* windowName, double flashCount, doubl
     return flashCount;
 }
 
+GMEXPORT double setWallpaper(const char* imgpath)
+{
+    const size_t charLen = strlen(imgpath);
+    wchar_t *path = new wchar_t[charLen];
+    std::mbstowcs(path, imgpath, charLen);
+
+    double result;
+    result = SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, (void *)path, SPIF_UPDATEINIFILE);
+
+    return (double)result;
+}
 
 
 // test funktionen
