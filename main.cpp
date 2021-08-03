@@ -3,13 +3,14 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
-#include <vector>
+#include <shobjidl.h>
+#include <objbase.h>
 #define GMEXPORT extern "C" __declspec(dllexport)
 
 /*
 TODO: Change return types from int to double.
 Check window flashing functions. Check.
-Check Icon function.
+Check Icon function. Check.
 */
 
 
@@ -24,7 +25,32 @@ HWND resolveHandle(const char* _passedHandle)
 
 //char* returnValPtr = &returnVal[0]; // Convert from string to char*
 
+GMEXPORT double setWindowTitle(const char* windowName) // Will change the window's name / title
+{
+    HWND handle = GetActiveWindow();
+    SetWindowTextA(
+                   handle,
+                   windowName
+                   );
 
+    return (double)1;
+}
+
+GMEXPORT double setWindowOptions(double wx, double wy, double ww, double wh)
+{
+    HWND handle = GetActiveWindow();
+    SetWindowPos(
+                 handle,
+                 HWND_TOP,
+                 wx,
+                 wy,
+                 ww,
+                 wh,
+                 SWP_SHOWWINDOW
+                 );
+    return double(1);
+
+}
 
 GMEXPORT double checkWindowName(const char* windowName, double returnValue) // geht / returns 1 yes 0 no
 {
@@ -193,6 +219,8 @@ GMEXPORT double setFlashingName(const char* windowName, double flashCount, doubl
     FlashWindowEx(&pf);
     return flashCount;
 }
+
+
 
 // test funktionen
 
