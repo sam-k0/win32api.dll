@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1627910841 source:e:\code__blocks\projects\gm_getfgwindow\getwindowname\main.cpp
+1627999267 source:e:\code__blocks\projects\gm_getfgwindow\getwindowname\main.cpp
 	<Windows.h>
 	<stdio.h>
 	<string>
 	<stdlib.h>
-	<vector>
+	<shobjidl.h>
+	<objbase.h>
+	<lmcons.h>
 

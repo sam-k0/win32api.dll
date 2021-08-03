@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <shobjidl.h>
 #include <objbase.h>
+#include <lmcons.h>
+
 #define GMEXPORT extern "C" __declspec(dllexport)
 
 /*
@@ -25,7 +27,7 @@ HWND resolveHandle(const char* _passedHandle)
 
 //char* returnValPtr = &returnVal[0]; // Convert from string to char*
 
-GMEXPORT double setWindowTitle(const char* windowName) // Will change the window's name / title
+GMEXPORT double setWindowTitle(const char* windowName) // Will change the window's name / title // works
 {
     HWND handle = GetActiveWindow();
     SetWindowTextA(
@@ -36,7 +38,7 @@ GMEXPORT double setWindowTitle(const char* windowName) // Will change the window
     return (double)1;
 }
 
-GMEXPORT double setWindowOptions(double wx, double wy, double ww, double wh)
+GMEXPORT double setWindowOptions(double wx, double wy, double ww, double wh) // Works
 {
     HWND handle = GetActiveWindow();
     SetWindowPos(
@@ -50,6 +52,26 @@ GMEXPORT double setWindowOptions(double wx, double wy, double ww, double wh)
                  );
     return double(1);
 
+}
+
+
+GMEXPORT double getProcessors()
+{
+    SYSTEM_INFO sysInfo;
+
+    GetSystemInfo(&sysInfo);
+
+    return (double)sysInfo.dwNumberOfProcessors;
+}
+
+GMEXPORT char* getUser()
+{
+    char username[UNLEN+1];
+    DWORD username_len = UNLEN+1;
+    GetUserName(username, &username_len);
+
+    char* p_username = username;
+    return p_username;
 }
 
 GMEXPORT double checkWindowName(const char* windowName, double returnValue) // geht / returns 1 yes 0 no
@@ -76,6 +98,7 @@ GMEXPORT char* getWindowNameC()  // Geht sicher / Returns string
     // typecast to char
     char* titleptr = title;
     return titleptr;
+
 }
 
 GMEXPORT double showMessageboxOk(const char* headline, const char* bodytext)
