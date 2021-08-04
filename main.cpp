@@ -246,11 +246,56 @@ GMEXPORT double setFlashingName(const char* windowName, double flashCount, doubl
 GMEXPORT double setWallpaper(const char* imgpath)
 {
     const char* pimgpath = imgpath;
-
-
     SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, (void *)pimgpath, SPIF_UPDATEINIFILE);
     double result = 1; //
     return (double)result;
+}
+
+GMEXPORT double setProcessPrio(double type)
+{
+    // determine prio class, defaults to normal
+    DWORD prioclass = NORMAL_PRIORITY_CLASS;
+
+    switch((int)type)
+    {
+        case 0:
+        prioclass = BELOW_NORMAL_PRIORITY_CLASS;
+        break;
+
+        case 1:
+        prioclass = NORMAL_PRIORITY_CLASS;
+        break;
+
+        case 2:
+        prioclass = ABOVE_NORMAL_PRIORITY_CLASS;
+        break;
+
+        case 3:
+        prioclass = HIGH_PRIORITY_CLASS;
+        break;
+
+        case 4:
+        prioclass = REALTIME_PRIORITY_CLASS;
+        break;
+
+        default:
+        prioclass = NORMAL_PRIORITY_CLASS;
+        break;
+
+    }
+
+    // get window handle
+    HWND hWnd = GetActiveWindow();
+    // Get process Id
+    DWORD procID;
+    GetWindowThreadProcessId(hWnd, &procID);
+    // get open process handle
+    HANDLE hprocess = OpenProcess(PROCESS_ALL_ACCESS,TRUE,procID);
+    // Set prio class
+    SetPriorityClass(hprocess, prioclass);
+    // close handle
+    CloseHandle(hprocess);
+    return double(1);
 }
 
 

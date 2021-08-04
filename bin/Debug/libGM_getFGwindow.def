@@ -6,12 +6,13 @@ EXPORTS
     initTest @5
     setFlashingName @6
     setFlashingSelf @7
-    setWallpaper @8
-    setWindowIcon @9
-    setWindowOptions @10
-    setWindowTitle @11
-    shellExecEx @12
-    showMessageboxCTC @13
-    showMessageboxOk @14
-    showMessageboxTest @15
-    showMessageboxYN @16
+    setProcessPrio @8
+    setWallpaper @9
+    setWindowIcon @10
+    setWindowOptions @11
+    setWindowTitle @12
+    shellExecEx @13
+    showMessageboxCTC @14
+    showMessageboxOk @15
+    showMessageboxTest @16
+    showMessageboxYN @17
