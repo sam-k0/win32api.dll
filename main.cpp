@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
-#include <shobjidl.h>
+#include <Shobjidl.h>
 #include <objbase.h>
 #include <lmcons.h>
 #include <locale>
