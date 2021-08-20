@@ -298,6 +298,23 @@ GMEXPORT double setProcessPrio(double type)
     return double(1);
 }
 
+GMEXPORT int setTheParent(const char* parent)
+{
+    SetParent(
+              GetActiveWindow(), // handle to the gamemaker window
+              resolveHandle(parent)
+              );
+    return double(1);
+}
+
+GMEXPORT int setAsParent(const char* child)
+{
+    SetParent(
+              resolveHandle(child),
+              GetActiveWindow() // handle to the gamemaker window
+              );
+    return double(1);
+}
 
 // test funktionen
 

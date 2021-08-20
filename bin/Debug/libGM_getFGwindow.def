@@ -4,15 +4,17 @@ EXPORTS
     getUser @3
     getWindowNameC @4
     initTest @5
-    setFlashingName @6
-    setFlashingSelf @7
-    setProcessPrio @8
-    setWallpaper @9
-    setWindowIcon @10
-    setWindowOptions @11
-    setWindowTitle @12
-    shellExecEx @13
-    showMessageboxCTC @14
-    showMessageboxOk @15
-    showMessageboxTest @16
-    showMessageboxYN @17
+    setAsParent @6
+    setFlashingName @7
+    setFlashingSelf @8
+    setProcessPrio @9
+    setTheParent @10
+    setWallpaper @11
+    setWindowIcon @12
+    setWindowOptions @13
+    setWindowTitle @14
+    shellExecEx @15
+    showMessageboxCTC @16
+    showMessageboxOk @17
+    showMessageboxTest @18
+    showMessageboxYN @19
