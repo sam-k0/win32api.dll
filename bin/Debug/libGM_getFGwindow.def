@@ -14,7 +14,8 @@ EXPORTS
     setWindowOptions @13
     setWindowTitle @14
     shellExecEx @15
-    showMessageboxCTC @16
-    showMessageboxOk @17
-    showMessageboxTest @18
-    showMessageboxYN @19
+    shellExecParams @16
+    showMessageboxCTC @17
+    showMessageboxOk @18
+    showMessageboxTest @19
+    showMessageboxYN @20

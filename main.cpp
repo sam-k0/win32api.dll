@@ -15,6 +15,10 @@ Check window flashing functions. Check.
 Check Icon function. Check.
 */
 
+char* strToChar(std::string in)
+{
+    return &in[0];
+}
 
 
 HWND resolveHandle(const char* _passedHandle)
@@ -215,6 +219,21 @@ GMEXPORT double shellExecEx(const char* Verb, const char* File, const char* Show
     return returnVal;
 }
 
+GMEXPORT double shellExecParams(const char* Verb, const char* File, const char* params) // geht sicher, Showtype ist typecast zu int.
+{
+    // Takes the Showtype as string : https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-showwindow
+    double returnVal = 1;
+    ShellExecute(
+                 NULL,
+                 Verb, // For example "open"
+                 File, // "C:\\Windows\\system32\\mspaint.exe"
+                 params,
+                 NULL,
+                 0
+                 );
+    return returnVal;
+}
+
 GMEXPORT double setFlashingSelf(double flashCount, double flashRateMillis) // geht
 {   // Sets own window to flashing
     HWND hHandle = GetActiveWindow(); // Set handle to passed handle
@@ -307,7 +326,7 @@ GMEXPORT int setTheParent(const char* parent)
     return double(1);
 }
 
-GMEXPORT int setAsParent(const char* child)
+GMEXPORT double setAsParent(const char* child)
 {
     SetParent(
               resolveHandle(child),
@@ -316,13 +335,15 @@ GMEXPORT int setAsParent(const char* child)
     return double(1);
 }
 
+
+
 // test funktionen
 
-GMEXPORT int showMessageboxTest(const char* passedHandle) // Geht / Testfunktion
+GMEXPORT double showMessageboxTest(const char* passedHandle) // Geht / Testfunktion
 {
     // Takes game maker window handle, headline, body text
     // returns whatever the msgbox id is.
-    int msgboxID = MessageBox(
+    double msgboxID = MessageBox(
         resolveHandle(passedHandle),
         "Is this a body?",
         "Is this a headline?",
