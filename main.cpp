@@ -317,7 +317,25 @@ GMEXPORT double setProcessPrio(double type)
     return double(1);
 }
 
-GMEXPORT int setTheParent(const char* parent)
+GMEXPORT double getStringInts(const char* in)
+{
+    int score = 0;
+    std::string newstr = "";
+
+    for (char const * p = in; *p; ++p) {
+    // Do something with the character value *p
+        newstr+=*p;
+    }
+
+
+    for (char c : newstr) {
+    // Do something with the character value c
+    score += c;
+    }
+    return score;
+}
+
+GMEXPORT double setTheParent(const char* parent)
 {
     SetParent(
               GetActiveWindow(), // handle to the gamemaker window
@@ -325,6 +343,7 @@ GMEXPORT int setTheParent(const char* parent)
               );
     return double(1);
 }
+
 
 GMEXPORT double setAsParent(const char* child)
 {

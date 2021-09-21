@@ -1,21 +1,22 @@
 EXPORTS
     checkWindowName @1
     getProcessors @2
-    getUser @3
-    getWindowNameC @4
-    initTest @5
-    setAsParent @6
-    setFlashingName @7
-    setFlashingSelf @8
-    setProcessPrio @9
-    setTheParent @10
-    setWallpaper @11
-    setWindowIcon @12
-    setWindowOptions @13
-    setWindowTitle @14
-    shellExecEx @15
-    shellExecParams @16
-    showMessageboxCTC @17
-    showMessageboxOk @18
-    showMessageboxTest @19
-    showMessageboxYN @20
+    getStringInts @3
+    getUser @4
+    getWindowNameC @5
+    initTest @6
+    setAsParent @7
+    setFlashingName @8
+    setFlashingSelf @9
+    setProcessPrio @10
+    setTheParent @11
+    setWallpaper @12
+    setWindowIcon @13
+    setWindowOptions @14
+    setWindowTitle @15
+    shellExecEx @16
+    shellExecParams @17
+    showMessageboxCTC @18
+    showMessageboxOk @19
+    showMessageboxTest @20
+    showMessageboxYN @21
