@@ -29,7 +29,7 @@ Documentation will be fully available soon, there are some functions lacking fur
 ***note: void return type means the returned value is arbitrary and not useful.
 Also, the datatype "double" is synonym to real, float, ty_real, same with string being synonym to ty_string or char****
 
-## dll functions (when using the raw dll)
+## ⚠️(not up-to-date!) dll functions (when using the raw dll)
 |function name|parameters (first to last)  |returns|description|
 |--|--|--|--|
 | setWindowTitle| (windowTitle: string)|void|Sets the current game window's title|
