@@ -354,9 +354,36 @@ GMEXPORT double setAsParent(const char* child)
     return double(1);
 }
 
+GMEXPORT double windowNameExists(const char* winName)
+{
+    //https://gist.github.com/blewert/b6e7b11c565cf82e7d700c609f22d023
+    // This tutorial explains how to iterate over all windows
+
+    HWND currentWnd = GetTopWindow(GetDesktopWindow()); // Get the current desktop window / furthest up
+    HWND selfHWND = GetActiveWindow();
+    char title[64]; // This will hold the current window's name
+    GetWindowTextA(currentWnd, title, 64); // write the current window name --> title
+
+    do
+    {
+        if(currentWnd == selfHWND)// Dismiss if we found ourselves
+        {
+            continue;
+        }
+
+        GetWindowTextA(currentWnd, title, 64); // Update text
+
+        if(strcmp(&title[0], winName) == 0)
+        {
+            return double(1); // We fou
+        }
+    }
+    while(currentWnd = GetWindow(currentWnd, GW_HWNDNEXT)); // Get the next window
+    return double(0);
+}
 
 
-// test funktionen
+// test
 
 GMEXPORT double showMessageboxTest(const char* passedHandle) // Geht / Testfunktion
 {

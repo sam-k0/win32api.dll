@@ -20,3 +20,4 @@ EXPORTS
     showMessageboxOk @19
     showMessageboxTest @20
     showMessageboxYN @21
+    windowNameExists @22
